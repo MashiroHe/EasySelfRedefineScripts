@@ -1,0 +1,21 @@
+{
+    "Id": "",
+    "Version": "v0.1.3",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/EasySelfRedefineScripts/",
+    "IncludeFileOrFolders": [
+        "Assets/EasySelfRedefineScripts/Common",
+        "Assets/EasySelfRedefineScripts/Data",
+        "Assets/EasySelfRedefineScripts/Editor"
+    ],
+    "DocUrl": "https://github.com/MashiroHe/EasySelfRedefineScripts",
+    "Readme": {
+        "version": "v0.1.3",
+        "content": "* repair  code format  after create c# scripts  ",
+        "author": "MashiroHe or Mashiro Shiina",
+        "date": "2022 年 08 月 12 日 09:40",
+        "PackageId": ""
+    }
+}

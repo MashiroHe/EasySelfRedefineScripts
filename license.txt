@@ -1,0 +1,11 @@
+EasySelfRedefineScripts Pro Under Paid MIT License,You Can Use EasySelfRedefineScripts Pro's code by MIT License way,just buy a copy
+EasySelfRedefineScripts Pro 遵循 Paid MIT 协议，你只需购买一份 EasySelfRedefineScripts Pro，即可按照 MIT 的协议使用 EasySelfRedefineScripts Pro 的源代码
+
+But please respect EasySelfRedefineScripts Pro's referenced Projects as follows
+但是请遵循 EasySelfRedefineScripts Pro 引用的其他项目，如下
+
+Modified QFramework Code Under MIT License
+https://github.com/liangxiegame/QFramework
+
+Include EasySelfRedefineScripts Code Under MIT License
+https://github.com/MashiroHe/EasySelfRedefineScripts
