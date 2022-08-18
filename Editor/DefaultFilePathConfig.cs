@@ -61,7 +61,8 @@ namespace EditorExtensions
 	//对外提供的 获取默认路径配置参数的 接口
 	public class EditorExtensionsConfig
     {
-		private const string m_ConfigAssetFilePath = "Assets/Scripts/MFramework/EditorExtensions/Editor/DefaultFilePathConfig.asset";
+		//配置文件存放路径
+		private const string m_ConfigAssetFilePath = "Assets/EditorExtensions/Editor/DefaultFilePathConfig.asset";//"Assets/Scripts/MFramework/EditorExtensions/Editor/DefaultFilePathConfig.asset";
 		public static DefaultFilePathConfig GetConfig()
         {
 			DefaultFilePathConfig m_Config = AssetDatabase.LoadAssetAtPath<DefaultFilePathConfig>(m_ConfigAssetFilePath);

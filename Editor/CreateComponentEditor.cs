@@ -26,7 +26,7 @@ using System.Reflection;
 
 namespace EditorExtensions
 {
-    public  class CreateComponentEditor:EditorWindow
+    public class CreateComponentEditor : EditorWindow
     {
         #region Public MenuItem
         //绑定游戏物体数据信息
@@ -35,11 +35,11 @@ namespace EditorExtensions
         [MenuItem("Tools/EditorExtensions/Settings/Namespace")]
         public static void SetSpawnScriptsNamespace()
         {
-            EditorWindow editorWindow = GetWindow(typeof(CreateComponentEditor),false, "Set Namespace",true);
+            EditorWindow editorWindow = GetWindow(typeof(CreateComponentEditor), false, "Set Namespace", true);
             editorWindow.Show();
         }
-        private string namspaceTxt ="";
-        private static string Namespace_Key="";//用于存储获取显示修改后的命名空间
+        private string namspaceTxt = "";
+        private static string Namespace_Key = "";//用于存储获取显示修改后的命名空间
         private void OnEnable()
         {
             namspaceTxt = EditorPrefs.GetString(Namespace_Key, defaultValue: NamespaceSettings.Namespace);
@@ -50,10 +50,10 @@ namespace EditorExtensions
             GUILayout.Space(2);
             GUILayout.BeginHorizontal();
             GUILayout.Label("Namespace:", GUILayout.Width(100));
-            namspaceTxt =EditorGUILayout.TextField(namspaceTxt, GUILayout.Width(200), GUILayout.Height(20));
+            namspaceTxt = EditorGUILayout.TextField(namspaceTxt, GUILayout.Width(200), GUILayout.Height(20));
             GUILayout.EndHorizontal();
             GUILayout.Space(2);
-            if (GUILayout.Button("Use and Spawn Scripts", GUILayout.Width(350), GUILayout.Height(20))&&Selection.activeGameObject)
+            if (GUILayout.Button("Use and Spawn Scripts", GUILayout.Width(350), GUILayout.Height(20)) && Selection.activeGameObject)
             {
                 if (!string.IsNullOrWhiteSpace(namspaceTxt))
                 {
@@ -72,7 +72,7 @@ namespace EditorExtensions
                 if (!string.IsNullOrWhiteSpace(namspaceTxt))
                 {
                     NamespaceSettings.Namespace = namspaceTxt;
-                    Debug.Log("Use Namespace: "+NamespaceSettings.Namespace+" success!");
+                    Debug.Log("Use Namespace: " + NamespaceSettings.Namespace + " success!");
                     Close();
                 }
                 else
@@ -82,16 +82,16 @@ namespace EditorExtensions
             }
         }
 
-        [MenuItem("GameObject/EditScriptsPathInfo", priority = 11, validate =true)]
+        [MenuItem("GameObject/EditScriptsPathInfo", priority = 11, validate = true)]
         public static bool ValidateAddCodeScriptsPathInfo()
         {
             return Selection.activeObject;
         }
         [MenuItem("GameObject/EditScriptsPathInfo %#E", priority = 11)]
-        public static  void AddCodeScriptsPathInfo()
+        public static void AddCodeScriptsPathInfo()
         {
             GameObject selectObj = Selection.activeGameObject;
-            CodeScriptsPathInfo codeGenerateInfo= selectObj.GetComponent<CodeScriptsPathInfo>();
+            CodeScriptsPathInfo codeGenerateInfo = selectObj.GetComponent<CodeScriptsPathInfo>();
             if (codeGenerateInfo == null)
             {
                 codeGenerateInfo = selectObj.AddComponent<CodeScriptsPathInfo>();
@@ -102,7 +102,7 @@ namespace EditorExtensions
             }
         }
 
-        [MenuItem("GameObject/SpawnOrAddScripts(GetChildNode)", priority = 12,validate =true)]
+        [MenuItem("GameObject/SpawnOrAddScripts(GetChildNode)", priority = 12, validate = true)]
         public static bool ValidateCreateCode()
         {
             if (!Selection.activeObject)
@@ -111,13 +111,13 @@ namespace EditorExtensions
             }
             return Selection.activeObject;
         }
-       [MenuItem("GameObject/SpawnOrAddScripts(GetChildNode) %#C", priority =12)]
+        [MenuItem("GameObject/SpawnOrAddScripts(GetChildNode) %#C", priority = 12)]
         public static void CreateCode()
         {
             //所生成 脚本 存储路径
             string directoryPath = EditorExtensionsConfig.GetConfig().m_ScriptsFolderPath; //Application.dataPath + "/Scripts/UI/Common";
             GameObject[] gameObjects = Selection.gameObjects;
-            GameObject rootGO= gameObjects[0];
+            GameObject rootGO = gameObjects[0];
 
             //获取生成文件路径编辑脚本
             CodeScriptsPathInfo codeScriptsPathInfo = rootGO.GetComponent<CodeScriptsPathInfo>();
@@ -132,8 +132,8 @@ namespace EditorExtensions
             }
 
             string spawnScriptsPath = directoryPath + "/" + rootGO.name + ".cs";//或者 directoryPath +  $"/{rootGO.name}.cs"                                                                       
-            string spawnDesignerScriptsPath = directoryPath + "/"+rootGO.name+".Designer.cs";//或者 directoryPath +  $"/{rootGO.name}.cs"
-          //Spawn Scripts ,if exists directly add to gameobject ,if not exists create it then add to game object
+            string spawnDesignerScriptsPath = directoryPath + "/" + rootGO.name + ".Designer.cs";//或者 directoryPath +  $"/{rootGO.name}.cs"
+                                                                                                 //Spawn Scripts ,if exists directly add to gameobject ,if not exists create it then add to game object
             if (File.Exists(spawnScriptsPath))
             {
                 AddScriptsToGameObject(rootGO.name);
@@ -147,8 +147,8 @@ namespace EditorExtensions
                 //先添加绑定Bind脚本 进行标记 然后 再搜索绑定物体  进行信息添加
                 AddBindScriptsToObject(rootGO);
                 //然后 根据绑定物体 名字信息 依次创建 根脚本 字段变量，并对其进行赋值
-               //直接挂在游戏物体上，进行逻辑代码编写以 ".cs"结尾 使用partial关键字 使一个脚本分为俩个脚本 使用,分别承担不同的作用，用以避免逻辑代码被覆盖
-                ComponentTemplate.CreateScripts(spawnScriptsPath,rootGO.name);
+                //直接挂在游戏物体上，进行逻辑代码编写以 ".cs"结尾 使用partial关键字 使一个脚本分为俩个脚本 使用,分别承担不同的作用，用以避免逻辑代码被覆盖
+                ComponentTemplate.CreateScripts(spawnScriptsPath, rootGO.name);
                 //不挂载在游戏物体身上，但是，可以用于 存储赋值变量字段以".Designer.cs"结尾
                 ComponentDesignerTemplate.CreateScripts(spawnDesignerScriptsPath, rootGO.name, m_BindInfoList);
                 EditorPrefs.SetString("Generate_Class_Name", rootGO.name);
@@ -170,7 +170,7 @@ namespace EditorExtensions
         public static void BindScripts()
         {
             GameObject[] gameObjects = Selection.gameObjects;
-            foreach(var bindGO in gameObjects)
+            foreach (var bindGO in gameObjects)
             {
                 Bind bind = bindGO.GetComponent<Bind>();
                 if (bind == null)
@@ -179,15 +179,15 @@ namespace EditorExtensions
                 }
             }
         }
-            #endregion
+        #endregion
 
-            #region  Private Method
-            [DidReloadScripts]
+        #region  Private Method
+        [DidReloadScripts]
         private static void AddComponentToGameObject()
         {
             string generateClassName = EditorPrefs.GetString("Generate_Class_Name");
             EditorPrefs.DeleteKey("Generate_Class_Name");
-            if(string.IsNullOrWhiteSpace(generateClassName))
+            if (string.IsNullOrWhiteSpace(generateClassName))
             {
                 Debug.Log("DidReloadScripts!");
             }
@@ -231,7 +231,7 @@ namespace EditorExtensions
                     //获取 搜索绑定物体  进行信息添加
                     AddBindScriptsToObject(go);
                     //使用序列化对象赋值，以及生成与游戏物体预制体
-                    SerializedObjectAndSpawnPrefab(go,rootScripts);
+                    SerializedObjectAndSpawnPrefab(go, rootScripts);
                 }
                 else
                 {
@@ -241,24 +241,23 @@ namespace EditorExtensions
             //每次修改生成脚本 命名空间后，进行初始化操作，以避免再次生成其他脚本时，使用上一次修改的命名空间
             //when modifying scripts namespace,in order to use last modifyed scripts namespace ,here Initial namespace to  "DefaultNamespace"
             // NamespaceSettings.Namespace = "DefaultNamespace";
-            EditorPrefs.SetString(Namespace_Key,NamespaceSettings.Namespace);
+            EditorPrefs.SetString(Namespace_Key, NamespaceSettings.Namespace);
             Debug.Log(string.Format("Initial scripts namespace to {0}", NamespaceSettings.Namespace));
         }
         //使用序列化对象赋值，以及生成与游戏物体预制体
-        private static void SerializedObjectAndSpawnPrefab(GameObject go ,Component rootScripts)
+        private static void SerializedObjectAndSpawnPrefab(GameObject go, Component rootScripts)
         {
             SerializedObject serializedObject = new SerializedObject(rootScripts);
             //然后根据绑定物体 信息得到其名字，根据名字进行序列化赋值操作
             foreach (var bindInfo in m_BindInfoList)
             {
-                string objName = "m_"+bindInfo.Name;//bindInfo.ObjNamePath.Split('/').Last();
+                string objName = "m_" + bindInfo.Name;//bindInfo.ObjNamePath.Split('/').Last();
                 if (!string.IsNullOrEmpty(serializedObject.FindProperty(objName).name))
                 {
                     serializedObject.FindProperty(objName).objectReferenceValue = go.transform.Find(bindInfo.ObjNamePath).gameObject;// GameObject.Find(objName);
                     string componentName = (bindInfo.Name.ToLower() + bindInfo.ComponentName.Substring(0, 5));
-                    
-                    serializedObject.FindProperty(componentName).objectReferenceValue = go.GetComponent(bindInfo.ComponentName);
-                   
+
+                    serializedObject.FindProperty(componentName).objectReferenceValue = go.transform.Find(bindInfo.ObjNamePath).GetComponent(bindInfo.ComponentName);
                 }
             }
             serializedObject.ApplyModifiedPropertiesWithoutUndo();
@@ -320,30 +319,32 @@ namespace EditorExtensions
             {
                 if (trans.name != go.name && !trans.GetComponent<Bind>())
                 {
-                   // trans.gameObject.AddComponent<Bind>();
-                  //  Debug.Log(string.Format("Add Bind Scripts to{0} success!", trans.name));
+                    //这俩行代码是 获取所有面板下的子物体 添加绑定标识 脚本
+                    // trans.gameObject.AddComponent<Bind>();
+                    //  Debug.Log(string.Format("Add Bind Scripts to{0} success!", trans.name));
                 }
             }
             //搜索绑定子对象脚本
             m_BindInfoList.Clear();
             SearchBindObject("", go.transform, m_BindInfoList);
         }
-        private static void SearchBindObject(string path,Transform rootTrans,List<BindInfo> binds)
+        private static void SearchBindObject(string path, Transform rootTrans, List<BindInfo> binds)
         {
-            Bind bind= rootTrans.GetComponent<Bind>();
+            Bind bind = rootTrans.GetComponent<Bind>();
             bool isRootObj = string.IsNullOrWhiteSpace(path);
-            if (bind!=null&& !isRootObj)
+            if (bind != null && !isRootObj)
             {
                 binds.Add(new BindInfo()
                 {
                     ObjNamePath = path,
-                    Name=rootTrans.name,
-                    ComponentName=bind.ComponentName
+                    Name = rootTrans.name,
+                    ComponentName = bind.ComponentName
                 });
             }
-            foreach(Transform childTrans in rootTrans)
+            //递归遍历 获取 所有绑定子物体 路径  例如: panel/go/go1
+            foreach (Transform childTrans in rootTrans)
             {
-                SearchBindObject(isRootObj?childTrans.name: path + "/" + childTrans.name, childTrans, binds);
+                SearchBindObject(isRootObj ? childTrans.name : path + "/" + childTrans.name, childTrans, binds);
             }
         }
         #endregion
